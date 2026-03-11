@@ -1,13 +1,15 @@
 <?php
 // index.php
+session_start();
 require_once 'classes/Database.php';
 require_once 'classes/User.php';
 
 $db = (new Database())->connect();
 $userObj = new User($db);
 
-// Fetching dummy user ID 1
-$userData = $userObj->getUserDetails(1);
+// NOTE: Future-e eta Login session theke asbe. Ekhon testing er jonno 1 rakha holo.
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1;
+$userData = $userObj->getUserDetails($user_id);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,13 +42,13 @@ $userData = $userObj->getUserDetails(1);
                 <h1 class="font-bold text-gray-800 leading-tight">Paikary Telecom</h1>
             </div>
         </div>
-        <button class="relative p-2 text-gray-600 hover:text-blue-600 transition">
+        <a href="notifications.php" class="relative p-2 text-gray-600 hover:text-blue-600 transition">
             <i class="fa-regular fa-bell text-xl"></i>
             <span class="absolute top-1 right-1 flex h-2.5 w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"></span>
             </span>
-        </button>
+        </a>
     </div>
 
     <div class="px-5 mt-4 space-y-6">
@@ -65,63 +67,63 @@ $userData = $userObj->getUserDetails(1);
             </div>
 
             <div class="grid grid-cols-4 gap-3 relative z-10">
-                <button class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
+                <a href="add_fund.php" class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
                     <i class="fa-solid fa-plus text-lg"></i>
                     <span class="text-[10px] font-medium">Add Fund</span>
-                </button>
-                <button class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
+                </a>
+                <a href="transfer.php" class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
                     <i class="fa-solid fa-paper-plane text-lg"></i>
                     <span class="text-[10px] font-medium">Transfer</span>
-                </button>
-                <button class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
+                </a>
+                <a href="history.php" class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
                     <i class="fa-solid fa-clock-rotate-left text-lg"></i>
                     <span class="text-[10px] font-medium">History</span>
-                </button>
-                <button class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
+                </a>
+                <a href="my_users.php" class="flex flex-col items-center justify-center space-y-2 bg-white/10 hover:bg-white/20 transition rounded-2xl py-3 border border-white/10">
                     <i class="fa-solid fa-users text-lg"></i>
                     <span class="text-[10px] font-medium">My Users</span>
-                </button>
+                </a>
             </div>
         </div>
 
         <div>
             <div class="flex justify-between items-end mb-4">
                 <h3 class="font-bold text-gray-800 text-lg">Services</h3>
-                <a href="#" class="text-blue-600 text-xs font-semibold hover:underline">View All</a>
+                <a href="all_services.php" class="text-blue-600 text-xs font-semibold hover:underline">View All</a>
             </div>
             
             <div class="grid grid-cols-4 gap-4">
-                <div class="flex flex-col items-center space-y-2 group cursor-pointer">
+                <a href="flexiload.php" class="flex flex-col items-center space-y-2 group cursor-pointer">
                     <div class="w-14 h-14 bg-white rounded-2xl premium-shadow flex items-center justify-center group-hover:scale-105 transition-transform border border-gray-100">
                         <i class="fa-solid fa-mobile-screen-button text-2xl text-blue-500"></i>
                     </div>
                     <span class="text-xs text-gray-600 font-medium text-center">Flexiload</span>
-                </div>
+                </a>
                 
-                <div class="flex flex-col items-center space-y-2 group cursor-pointer">
+                <a href="drive_pack.php" class="flex flex-col items-center space-y-2 group cursor-pointer">
                     <div class="w-14 h-14 bg-white rounded-2xl premium-shadow flex items-center justify-center group-hover:scale-105 transition-transform border border-gray-100">
                         <i class="fa-solid fa-bolt text-2xl text-orange-500"></i>
                     </div>
                     <span class="text-xs text-gray-600 font-medium text-center">Drive Pack</span>
-                </div>
+                </a>
 
-                <div class="flex flex-col items-center space-y-2 group cursor-pointer">
+                <a href="internet.php" class="flex flex-col items-center space-y-2 group cursor-pointer">
                     <div class="w-14 h-14 bg-white rounded-2xl premium-shadow flex items-center justify-center group-hover:scale-105 transition-transform border border-gray-100">
                         <i class="fa-solid fa-wifi text-2xl text-teal-500"></i>
                     </div>
                     <span class="text-xs text-gray-600 font-medium text-center">Internet</span>
-                </div>
+                </a>
 
-                <div class="flex flex-col items-center space-y-2 group cursor-pointer">
+                <a href="pay_bill.php" class="flex flex-col items-center space-y-2 group cursor-pointer">
                     <div class="w-14 h-14 bg-white rounded-2xl premium-shadow flex items-center justify-center group-hover:scale-105 transition-transform border border-gray-100">
                         <i class="fa-solid fa-file-invoice-dollar text-2xl text-purple-500"></i>
                     </div>
                     <span class="text-xs text-gray-600 font-medium text-center">Pay Bill</span>
-                </div>
+                </a>
             </div>
         </div>
 
-        <div class="rounded-3xl overflow-hidden premium-shadow relative h-36">
+        <a href="drive_pack.php" class="block rounded-3xl overflow-hidden premium-shadow relative h-36">
             <img src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Promo">
             <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent flex items-center p-6">
                 <div class="text-white">
@@ -130,31 +132,31 @@ $userData = $userObj->getUserDetails(1);
                     <p class="text-xs text-gray-200 mt-1">Get 50GB @ ৳299 only!</p>
                 </div>
             </div>
-        </div>
+        </a>
 
     </div>
 
     <div class="fixed bottom-0 w-full max-w-[480px] bg-white border-t border-gray-100 px-6 py-3 flex justify-between items-center z-50 rounded-t-3xl premium-shadow">
-        <a href="#" class="flex flex-col items-center text-blue-600">
+        <a href="index.php" class="flex flex-col items-center text-blue-600">
             <i class="fa-solid fa-house text-xl mb-1"></i>
             <span class="text-[10px] font-medium">Home</span>
         </a>
-        <a href="#" class="flex flex-col items-center text-gray-400 hover:text-blue-600 transition">
+        <a href="reports.php" class="flex flex-col items-center text-gray-400 hover:text-blue-600 transition">
             <i class="fa-solid fa-chart-pie text-xl mb-1"></i>
             <span class="text-[10px] font-medium">Reports</span>
         </a>
         
         <div class="relative -top-6">
-            <button class="w-14 h-14 bg-blue-600 rounded-full text-white flex items-center justify-center shadow-lg shadow-blue-500/40 border-4 border-[#f8fafc] hover:scale-105 transition-transform">
+            <a href="qr_scan.php" class="w-14 h-14 bg-blue-600 rounded-full text-white flex items-center justify-center shadow-lg shadow-blue-500/40 border-4 border-[#f8fafc] hover:scale-105 transition-transform">
                 <i class="fa-solid fa-qrcode text-2xl"></i>
-            </button>
+            </a>
         </div>
 
-        <a href="#" class="flex flex-col items-center text-gray-400 hover:text-blue-600 transition">
+        <a href="support.php" class="flex flex-col items-center text-gray-400 hover:text-blue-600 transition">
             <i class="fa-solid fa-headset text-xl mb-1"></i>
             <span class="text-[10px] font-medium">Support</span>
         </a>
-        <a href="#" class="flex flex-col items-center text-gray-400 hover:text-blue-600 transition">
+        <a href="profile.php" class="flex flex-col items-center text-gray-400 hover:text-blue-600 transition">
             <i class="fa-solid fa-user text-xl mb-1"></i>
             <span class="text-[10px] font-medium">Profile</span>
         </a>
